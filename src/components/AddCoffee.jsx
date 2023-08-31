@@ -1,23 +1,59 @@
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AddCoffee = () => {
-      const handleAddCoffee = event => {
-            event.preventDefault();
-            const form=event.target;
-            const name=form.name.value;
-            const quantity=form.quantity.value;
-            const suppliar=form.suppliar.value;
-            const Taste=form.Taste.value;
-            const catagory=form.catagory.value;
-            const Details=form.Details.value;
-            const photo=form.photo.value;
+  const handleAddCoffee = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const quantity = form.quantity.value;
+    const suppliar = form.suppliar.value;
+    const Taste = form.Taste.value;
+    const catagory = form.catagory.value;
+    const Details = form.Details.value;
+    const photo = form.photo.value;
 
-            const newCoffee={name,quantity,suppliar,Taste,catagory,Details,photo};
-            console.log(newCoffee)
-            form.reset();
+    const newCoffee = {
+      name,
+      quantity,
+      suppliar,
+      Taste,
+      catagory,
+      Details,
+      photo,
+    };
+    // form.reset();
 
-      }
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "user addeded successfully",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
+  };
   return (
-    <div className="bg-purple-400 p-24">
+    <div className="bg-purple-400 p-20">
+      <Link to={"/"}>
+        <button className="outline bg-purple-300 text-3xl">
+          <FaHome />
+        </button>
+      </Link>
+      <coffeeCard></coffeeCard>
       <h1 className="text-3xl font-extrabold">add new cofee</h1>
       <form onSubmit={handleAddCoffee}>
         <div className="w-50 ">
@@ -123,7 +159,7 @@ const AddCoffee = () => {
             </label>
           </div>
         </div>
-        <input type="submit" value="Add coffee"  className="btn btn-block"/>
+        <input type="submit" value="Add coffee" className="btn btn-block" />
       </form>
     </div>
   );
