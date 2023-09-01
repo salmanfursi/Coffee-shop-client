@@ -23,7 +23,7 @@ const AddCoffee = () => {
       Details,
       photo,
     };
-    // form.reset();
+    form.reset();
 
     fetch("http://localhost:5000/coffee", {
       method: "POST",
