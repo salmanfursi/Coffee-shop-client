@@ -53,7 +53,6 @@ const AddCoffee = () => {
           <FaHome />
         </button>
       </Link>
-      <coffeeCard></coffeeCard>
       <h1 className="text-3xl font-extrabold">add new cofee</h1>
       <form onSubmit={handleAddCoffee}>
         <div className="w-50 ">
